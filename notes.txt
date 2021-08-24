@@ -1,0 +1,27 @@
+CA(Campus Ambassador) -> superheroes
+
+WAKANDA -> Our App or Dashboard where CA or admin can login
+
+Admin/Manager -> Shield Agents
+
+
+models
+
+users
+  - superheroes
+  - agents
+
+tasks   (tasks that are assigned to CAs)
+bounties  (bounties that will be given to CA)
+badges  (badges are like levels for CAs)
+
+
+
+
+#expressJS                                                             #nestJS
+routes                                                                  controllers
+controllers                                                             services
+policies(authorization)                                                 guards
+middlewares                                                             middlewares, pipes, exceptions
+
+
