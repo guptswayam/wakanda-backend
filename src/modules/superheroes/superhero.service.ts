@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Superhero } from "src/entities/superhero.entity";
 import { generateToken } from "src/shared/utils/utility";
 import { Repository } from "typeorm";
-import { AgentService } from "../agent/agent.service";
+import { AgentService } from "../agents/agent.service";
 import { UserService } from "../users/user.service";
 import { CreateSuperheroDTO } from "./dto/createSuperhero.dto";
 import { SuperheroLoginDTO } from "./dto/superheroLogin.dto";
@@ -66,6 +66,14 @@ export class SuperheroService {
     return {data: token}
     
 
+  }
+
+  async findSuperheroOrThrowError(params: any) {
+    const superhero = this.superheroRepo.findOne(params)
+    if(!superhero){
+      throw new BadRequestException("Invalid Superhero Id!")
+    }
+    return superhero;
   }
 
 }

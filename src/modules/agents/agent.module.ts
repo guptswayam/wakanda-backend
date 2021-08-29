@@ -1,7 +1,9 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Agent } from 'src/entities/agent.entity';
 import { User } from 'src/entities/user.entity';
+import { agentRestrictTo, IsAgent } from 'src/shared/middlewares/agentAuth.middleware';
+import { AuthMiddleware } from 'src/shared/middlewares/auth.middleware';
 import { UserService } from '../users/user.service';
 import { AgentController } from './agent.controller';
 import { AgentService } from './agent.service';
@@ -11,4 +13,9 @@ import { AgentService } from './agent.service';
   controllers: [AgentController],
   providers: [AgentService, UserService]
 })
-export class AgentModule {}
+export class AgentModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware, IsAgent, agentRestrictTo("commander", "director"))
+    .forRoutes("/agents")
+  }
+}

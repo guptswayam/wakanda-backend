@@ -13,7 +13,7 @@ export class UserService {
   }
 
   getUsers() {
-    return this.userRepo.find({relations: ["superhero"]})
+    return this.userRepo.find({relations: ["superhero", "agent"]})
     // return this.entityManager.query("select * from users where username=$1", ["swayam"]);
   }
 

@@ -5,7 +5,7 @@ import { Superhero } from "src/entities/superhero.entity";
 import { User } from "src/entities/user.entity";
 import { AuthMiddleware } from "src/shared/middlewares/auth.middleware";
 import { IsSuperhero } from "src/shared/middlewares/superheroAuth.middleware";
-import { AgentService } from "../agent/agent.service";
+import { AgentService } from "../agents/agent.service";
 import { UserService } from "../users/user.service";
 import { SuperheroController } from "./superhero.controller";
 import { SuperheroService } from "./superhero.service";

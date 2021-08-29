@@ -5,7 +5,7 @@ import { NextFunction, Request, Response } from "express";
 export class IsSuperhero implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     if(!req.user.superhero){
-      throw new ForbiddenException("You are not allowed to access this route")
+      throw new ForbiddenException("You are not allowed to access this route!")
     }
     next()
   }

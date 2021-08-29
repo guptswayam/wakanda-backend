@@ -17,7 +17,7 @@ export class Debrief {
   @Column({type: "text"})
   report: string
 
-  @Column({type: "text"})
+  @Column({type: "text", nullable: true})
   comment: string
 
   @ManyToOne(() => Superhero, {nullable: false})

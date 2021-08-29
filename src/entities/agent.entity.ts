@@ -21,7 +21,7 @@ export class Agent {
   @OneToOne(() => User, user => user.agent)
   user: User
   
-  @OneToOne(() => Agent)
+  @OneToOne(() => Agent, {createForeignKeyConstraints: false})
   @JoinColumn()
   manager: Agent
 

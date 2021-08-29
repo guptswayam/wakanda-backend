@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Mission } from "src/entities/mission.entity";
 import { Repository } from "typeorm";
@@ -28,6 +28,14 @@ export class MissionService {
 
   async softDeleteMission(id: string) {
     return this.missionRepo.softDelete({id})
+  }
+
+  async findMissionOrThrowError(params: any) {
+    const mission = this.missionRepo.findOne(params)
+    if(!mission){
+      throw new BadRequestException("Invalid Mission Id!")
+    }
+    return mission;
   }
 
 }
