@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Req, UsePipes } from "@nestjs/common";
 import { Request } from "express";
 import { ValidationPipe } from "src/shared/pipes/validation.pipe";
+import { EntityManager, Transaction, TransactionManager } from "typeorm";
 import { DebriefService } from "./debrief.service";
 import { ApproveDebriefDTO } from "./dto/approveDebrief.dto";
 import { CreateDebriefDTO } from "./dto/createDebrief.dto";
@@ -17,8 +18,9 @@ export class DebriefController {
 
   @UsePipes(new ValidationPipe())
   @Post()
-  createDebrief(@Req() req: Request, @Body() data: CreateDebriefDTO) {
-    return this.debriefService.createDebrief(data, req.user)
+  @Transaction()
+  createDebrief(@Req() req: Request, @Body() data: CreateDebriefDTO, @TransactionManager() entityManager: EntityManager) {
+    return this.debriefService.createDebrief(data, req.user, entityManager)
   }
 
   @UsePipes(new ValidationPipe())

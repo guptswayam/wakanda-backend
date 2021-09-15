@@ -17,10 +17,10 @@ import { MissionService } from "./mission.service";
 export class MissionModule implements NestModule {
   configure(consumer: MiddlewareConsumer){
 
-    consumer.apply(AuthMiddleware, IsAgent, agentRestrictTo("director", "commander"))
-    .forRoutes({path: "/missions", method: RequestMethod.POST})
+    // consumer.apply(AuthMiddleware, IsAgent, agentRestrictTo("director", "commander"))
+    // .forRoutes({path: "/missions", method: RequestMethod.POST})
 
-    consumer.apply(AuthMiddleware)
-    .forRoutes("/missions")
+    // consumer.apply(AuthMiddleware)
+    // .forRoutes("/missions")
   }
 }

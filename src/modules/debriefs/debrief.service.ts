@@ -15,7 +15,7 @@ export class DebriefService{
     this.entityManager = getConnection().manager
   }
 
-  async createDebrief(data:CreateDebriefDTO, user: User) {
+  async createDebrief(data:CreateDebriefDTO, user: User, entityManager: EntityManager) {
     const superhero = await this.superheroService.findSuperheroOrThrowError({id: user.superhero.id})
 
     const mission = await this.missionService.findMissionOrThrowError({id: data.missionId})
@@ -25,8 +25,9 @@ export class DebriefService{
     debrief.superhero = superhero
     debrief.report = data.report
     debrief.status = data.status
+    debrief.comment = data.comment
 
-    await this.debriefRepo.save(debrief)
+    await entityManager.save(debrief)
 
     return debrief
 

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Mission } from "src/entities/mission.entity";
 import { Repository } from "typeorm";
@@ -6,6 +6,7 @@ import { CreateMissionDTO } from "./dto/createMission.dto";
 
 @Injectable()
 export class MissionService {
+  private readonly logger = new Logger(MissionService.name)
   constructor(@InjectRepository(Mission) private readonly missionRepo: Repository<Mission>) {}
 
   async createMission(data: CreateMissionDTO) {
@@ -23,6 +24,7 @@ export class MissionService {
   }
 
   async getMissions() {
+    this.logger.log("Fetching Misssions...")
     return this.missionRepo.find()
   }
 

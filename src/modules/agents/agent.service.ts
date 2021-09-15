@@ -7,11 +7,13 @@ import { Repository } from 'typeorm';
 import { UserService } from '../users/user.service';
 import { AgentLoginDTO } from './dto/agentLogin.dto';
 import { CreateAgentDTO } from './dto/createAgent.dto';
+import jwt from "jsonwebtoken"
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AgentService {
 
-  constructor(@InjectRepository(Agent) private readonly agentRepo: Repository<Agent>, private readonly userService: UserService) {}
+  constructor(@InjectRepository(Agent) private readonly agentRepo: Repository<Agent>, private readonly userService: UserService, private readonly configService: ConfigService) {}
 
   async createAgent(data: CreateAgentDTO) {
     await this.userService.duplicateUserCheck(data.id)
@@ -57,7 +59,9 @@ export class AgentService {
       throw new ForbiddenException("You are not allowed to login as agent!")
     
 
-    const token = generateToken(user)
+    // const token = generateToken(user)
+    const JWT_CONFIG = this.configService.get("jwt")
+    const token = jwt.sign({id: user.id}, JWT_CONFIG.jwtSecret, {expiresIn: JWT_CONFIG.jwtExpresIn})
     
 
     return {data: token}

@@ -10,4 +10,6 @@ export class CreateDebriefDTO {
   @IsUUID()
   missionId: string
 
+  comment: string
+
 }

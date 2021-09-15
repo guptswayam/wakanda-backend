@@ -16,6 +16,7 @@ import { AgentService } from './agent.service';
 export class AgentModule implements NestModule{
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(AuthMiddleware, IsAgent, agentRestrictTo("commander", "director"))
+    .exclude("/agents/login")
     .forRoutes("/agents")
   }
 }
